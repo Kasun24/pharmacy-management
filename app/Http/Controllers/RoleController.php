@@ -76,7 +76,7 @@ class RoleController extends Controller
     public function edit(Role $role): View
     {
         if ($role->name == 'Owner') {
-            abort(403, 'Owner ROLE CAN NOT BE EDITED');
+            abort(403, 'Owner role can not be deleted');
         }
 
         $rolePermissions = DB::table("role_has_permissions")->where("role_id", $role->id)

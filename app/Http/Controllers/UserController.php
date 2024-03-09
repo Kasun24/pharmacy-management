@@ -77,7 +77,7 @@ class UserController extends Controller
         // Check Only Owner can update his own Profile
         if ($user->hasRole('Owner')) {
             if ($user->id != auth()->user()->id) {
-                abort(403, 'USER DOES NOT HAVE THE RIGHT PERMISSIONS');
+                abort(403, 'User does not have edit permission');
             }
         }
 
@@ -116,7 +116,7 @@ class UserController extends Controller
     {
         // About if user is Owner or User ID belongs to Auth User
         if ($user->hasRole('Owner') || $user->id == auth()->user()->id) {
-            abort(403, 'USER DOES NOT HAVE THE RIGHT PERMISSIONS');
+            abort(403, 'User does not have delete permission');
         }
 
         $user->syncRoles([]);
