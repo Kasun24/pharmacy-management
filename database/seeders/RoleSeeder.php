@@ -23,13 +23,19 @@ class RoleSeeder extends Seeder
             'delete-user',
             'create-product',
             'edit-product',
-            'delete-product'
+            'delete-product',
+            'create-customer',
+            'edit-customer',
+            'delete-customer'
         ]);
 
         $cashier->givePermissionTo([
             'create-product',
             'edit-product',
-            'delete-product'
+            'delete-product',
+            'create-customer',
+            'edit-customer',
+            'delete-customer'
         ]);
     }
 }

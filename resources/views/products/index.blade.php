@@ -42,7 +42,7 @@
                     </td>
                 </tr>
                 @empty
-                    <td colspan="4">
+                    <td colspan="5">
                         <span class="text-danger">
                             <strong>No Product Found!</strong>
                         </span>
