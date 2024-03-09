@@ -15,11 +15,11 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-       $this->middleware('auth');
-       $this->middleware('permission:create-product|edit-product|delete-product', ['only' => ['index','show']]);
-       $this->middleware('permission:create-product', ['only' => ['create','store']]);
-       $this->middleware('permission:edit-product', ['only' => ['edit','update']]);
-       $this->middleware('permission:delete-product', ['only' => ['destroy']]);
+        $this->middleware('auth');
+        $this->middleware('permission:create-product|edit-product|delete-product', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create-product', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit-product', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-product', ['only' => ['destroy']]);
     }
 
     /**
@@ -47,7 +47,7 @@ class ProductController extends Controller
     {
         Product::create($request->all());
         return redirect()->route('products.index')
-                ->withSuccess('New product is added successfully.');
+            ->withSuccess('New product is added successfully.');
     }
 
     /**
@@ -77,7 +77,7 @@ class ProductController extends Controller
     {
         $product->update($request->all());
         return redirect()->back()
-                ->withSuccess('Product is updated successfully.');
+            ->withSuccess('Product is updated successfully.');
     }
 
     /**
@@ -85,8 +85,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product): RedirectResponse
     {
-        $product->delete();
+        $product->delete(); // Soft delete using the `delete` method
         return redirect()->route('products.index')
-                ->withSuccess('Product is deleted successfully.');
+            ->withSuccess('Product has been moved to trash.'); // Adapt message for clarity
     }
 }

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->integer('qty')->unsigned()->default(1);
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 
