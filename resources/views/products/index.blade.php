@@ -13,6 +13,7 @@
                 <th scope="col">S#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">QTY</th>
                 <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -22,6 +23,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->description }}</td>
+                    <td>{{ $product->qty }}</td>
                     <td>
                         <form action="{{ route('products.destroy', $product->id) }}" method="post">
                             @csrf

@@ -29,6 +29,12 @@
                             {{ $product->description }}
                         </div>
                     </div>
+                    <div class="row">
+                        <label for="qty" class="col-md-4 col-form-label text-md-end text-start"><strong>QTY:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $product->qty }}
+                        </div>
+                    </div>
         
             </div>
         </div>
