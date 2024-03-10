@@ -37,6 +37,15 @@
                             @endif
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label for="qty" class="col-md-4 col-form-label text-md-end text-start">QTY</label>
+                        <div class="col-md-6">
+                        <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty" name="qty" value="{{ old('qty') }}">
+                            @if ($errors->has('qty'))
+                                <span class="text-danger">{{ $errors->first('qty') }}</span>
+                            @endif
+                        </div>
+                    </div>
                     
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Add Product">

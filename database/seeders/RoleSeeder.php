@@ -18,18 +18,16 @@ class RoleSeeder extends Seeder
         $cashier = Role::create(['name' => 'Cashier']);
 
         $manager->givePermissionTo([
-            'create-user',
-            'edit-user',
-            'delete-user',
-            'create-product',
             'edit-product',
-            'delete-product'
+            'delete-product',
+
+            'edit-customer',
+            'delete-customer'
         ]);
 
         $cashier->givePermissionTo([
-            'create-product',
             'edit-product',
-            'delete-product'
+            'edit-customer',
         ]);
     }
 }

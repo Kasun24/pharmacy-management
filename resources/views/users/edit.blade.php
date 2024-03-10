@@ -26,7 +26,15 @@
                             @endif
                         </div>
                     </div>
-
+                    <div class="mb-3 row">
+                        <label for="username" class="col-md-4 col-form-label text-md-end text-start">Username</label>
+                        <div class="col-md-6">
+                            <input type="username" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $user->username }}">
+                            @if ($errors->has('username'))
+                            <span class="text-danger">{{ $errors->first('username') }}</span>
+                            @endif
+                        </div>
+                    </div>
                     <div class="mb-3 row">
                         <label for="email" class="col-md-4 col-form-label text-md-end text-start">Email Address</label>
                         <div class="col-md-6">

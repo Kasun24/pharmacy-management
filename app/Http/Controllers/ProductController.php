@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -15,11 +16,11 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-       $this->middleware('auth');
-       $this->middleware('permission:create-product|edit-product|delete-product', ['only' => ['index','show']]);
-       $this->middleware('permission:create-product', ['only' => ['create','store']]);
-       $this->middleware('permission:edit-product', ['only' => ['edit','update']]);
-       $this->middleware('permission:delete-product', ['only' => ['destroy']]);
+        $this->middleware('auth');
+        $this->middleware('permission:create-product|edit-product|delete-product', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create-product', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit-product', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-product', ['only' => ['destroy']]);
     }
 
     /**
@@ -47,7 +48,7 @@ class ProductController extends Controller
     {
         Product::create($request->all());
         return redirect()->route('products.index')
-                ->withSuccess('New product is added successfully.');
+            ->withSuccess('New product is added successfully.');
     }
 
     /**
@@ -77,16 +78,27 @@ class ProductController extends Controller
     {
         $product->update($request->all());
         return redirect()->back()
-                ->withSuccess('Product is updated successfully.');
+            ->withSuccess('Product is updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product): RedirectResponse
+
+    public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('products.index')
-                ->withSuccess('Product is deleted successfully.');
+        $user = Auth::user(); // Get the currently authenticated user
+
+        if ($user->hasRole('Owner')) {
+            // Hard delete for owners
+            $product->forceDelete();
+            return redirect()->route('products.index')
+                ->withSuccess('Product has been permanently deleted.');
+        } else {
+            // Soft delete for other users
+            $product->delete();
+            return redirect()->route('products.index')
+                ->withSuccess('Product has been moved to trash.');
+        }
     }
 }

@@ -17,6 +17,7 @@ class OwnerSeeder extends Seeder
         // Creating Owner User
         $owner = User::create([
             'name' => 'Owner',
+            'username' => 'owner',
             'email' => 'owner@example.com',
             'password' => Hash::make('own1234')
         ]);
@@ -25,6 +26,7 @@ class OwnerSeeder extends Seeder
         // Creating Manager User
         $manager = User::create([
             'name' => 'Manager',
+            'username' => 'manager',
             'email' => 'manager@example.com',
             'password' => Hash::make('man1234')
         ]);
@@ -33,6 +35,7 @@ class OwnerSeeder extends Seeder
         // Creating Cashier User
         $cashier = User::create([
             'name' => 'Cashier',
+            'username' => 'cashier',
             'email' => 'cashier@example.com',
             'password' => Hash::make('cash1234')
         ]);

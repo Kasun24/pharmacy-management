@@ -29,6 +29,10 @@
                         <a class="btn btn-warning" href="{{ route('products.index') }}">
                             <i class="bi bi-bag"></i> Manage Products</a>
                     @endcanany
+                    @canany(['create-customer', 'edit-customer', 'delete-customer'])
+                        <a class="btn btn-secondary" href="{{ route('customers.index') }}">
+                            <i class="bi bi-people"></i> Manage Customers</a>
+                    @endcanany
                     <p>&nbsp;</p>
                 </div>
             </div>

@@ -22,6 +22,13 @@
                     </div>
 
                     <div class="mb-3 row">
+                        <label for="username" class="col-md-4 col-form-label text-md-end text-start"><strong>Username:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $user->username }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
                         <label for="email" class="col-md-4 col-form-label text-md-end text-start"><strong>Email Address:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
                             {{ $user->email }}
