@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -83,10 +84,21 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product): RedirectResponse
+
+    public function destroy(Product $product)
     {
-        $product->delete(); // Soft delete using the `delete` method
-        return redirect()->route('products.index')
-            ->withSuccess('Product has been moved to trash.'); // Adapt message for clarity
+        $user = Auth::user(); // Get the currently authenticated user
+
+        if ($user->hasRole('Owner')) {
+            // Hard delete for owners
+            $product->forceDelete();
+            return redirect()->route('products.index')
+                ->withSuccess('Product has been permanently deleted.');
+        } else {
+            // Soft delete for other users
+            $product->delete();
+            return redirect()->route('products.index')
+                ->withSuccess('Product has been moved to trash.');
+        }
     }
 }

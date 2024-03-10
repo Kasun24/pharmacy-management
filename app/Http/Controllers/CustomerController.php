@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -82,10 +83,20 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer): RedirectResponse
-    {
+    public function destroy(Customer $customer)
+{
+    $user = Auth::user(); // Get the currently authenticated user
+
+    if ($user->hasRole('Owner')) {
+        // Hard delete for owners
+        $customer->forceDelete();
+        return redirect()->route('customers.index')
+            ->withSuccess('Customer has been permanently deleted.');
+    } else {
+        // Soft delete for other users
         $customer->delete();
         return redirect()->route('customers.index')
-                        ->withSuccess('Customer has been moved to trash.');
+            ->withSuccess('Customer has been moved to trash.');
     }
+}
 }
